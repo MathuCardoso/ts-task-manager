@@ -1,14 +1,14 @@
 import type { Task } from "../models/Task.js";
-import chalk, { Chalk } from "chalk";
+import chalk from "chalk";
 import fs from "fs";
-import { getLastId, fDate } from "../helpers/helper.js";
+import { getLastId, fDate } from "../utils/helper.js";
 
 export class TaskManager {
     public static saveTask(title: string): void {
         const newTask: Task = {
             id: String((getLastId() ?? 0) + 1),
             title: title,
-            status: "pendent",
+            status: "pending",
             createdAt: new Date(),
         };
 
@@ -49,7 +49,7 @@ export class TaskManager {
         );
         savedTasks.forEach((task) => {
             const status =
-                task.status == "pendent"
+                task.status == "pending"
                     ? chalk.yellow(task.status)
                     : chalk.green(task.status);
 
