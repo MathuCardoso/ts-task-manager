@@ -1,52 +1,35 @@
+#!/usr/bin/env node
 import { TaskManager } from "./services/TaskManager.js";
+import { Command } from "commander";
 
 function main() {
-    const command = process.argv[2];
-    const value = process.argv[3];
+    const program = new Command();
+    program
+        .name("task-cli")
+        .description("Simple CLI for task management")
+        .version("1.0.0");
 
-    switch (command) {
-        case "add":
-            if (!value) {
-                console.log("Insira o título da task.");
-                return;
-            }
-            TaskManager.saveTask(value);
-            break;
-        case "list":
-            TaskManager.listTasks();
-            break;
-        case "done":
-            {
-                if (!value) {
-                    console.log("Insira o id da task.");
-                    return;
-                }
-                TaskManager.checkTask(value);
-            }
-            break;
-        case "remove":
-            {
-                if (!value) {
-                    console.log("Insira o id da task.");
-                    return;
-                }
-                TaskManager.removeTask(value);
-            }
-            break;
-        default:
-            if (!command) {
-                console.log("Insira um comando.");
-            } else {
-                console.log("Comando inválido.");
-            }
+    program
+        .command("add <title>")
+        .action((title) => TaskManager.saveTask(title))
+        .description("Add a new task.");
 
-            console.log(`Comandos disponíveis: 
-- add "<título>"
-- list
-- done <id>
-- remove <id>`);
-            return;
-    }
+    program
+        .command("list")
+        .action(() => TaskManager.listTasks())
+        .description("List all tasks.");
+
+    program
+        .command("done <id>")
+        .action((id) => TaskManager.checkTask(id))
+        .description("Change task status to 'done'.");
+
+    program
+        .command("remove <id>")
+        .action((id) => TaskManager.removeTask(id))
+        .description("Remove a task.");
+
+    program.parse();
 }
 
 main();

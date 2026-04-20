@@ -11,9 +11,13 @@
         "dev": "npx tsc --watch"
     },
     "dependencies": {
+        "commander": "^14.0.3",
         "typescript": "^6.0.2"
     },
     "devDependencies": {
         "@types/node": "^25.6.0"
+    },
+    "bin": {
+        "task": "./dist/index.js"
     }
 }

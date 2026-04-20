@@ -34,8 +34,7 @@ export class TaskManager {
         }
         console.log("=-=-=-=-=-=-=-=-=-=TASKS CADASTRADAS=-=-=-=-=-=-=-=-=-=")
         savedTasks.forEach((task, index) => {
-            console.log(`${index+1} - ${task.title}`);
-            console.log(`Status: ${task.status}`);
+            console.log(`[${index+1}] ${task.title} - ${task.status}`);
             console.log(`Data: ${this.fDate(task.createdAt)}`);
             console.log("\n")
         })
